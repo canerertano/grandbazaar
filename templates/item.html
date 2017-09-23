@@ -1,0 +1,83 @@
+{% extends "main.html" %}
+{% block content %}
+{% include "header.html" %}
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-2" role="complementary">
+		</div>
+		<div class="col-sm-8" role="main">
+			<div class="row">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						<img src="{{ item.picture }}" class="item-pic">
+						<h3 class="media-heading">{{ item.name }}</h3>
+						<p style="word-wrap: break-word;">{{item.description}}</p>
+					</div>
+				</div>
+			</div>
+			{% if user != None %}
+			<div class="row">
+				<div class="btn-group" role="group"  style="float: right;">
+					<a class="btn btn-info" role="button" data-toggle="modal" data-target="#editItemModal">Edit</a>
+					<a class="btn btn-danger" role="button" data-toggle="modal" data-target="#deleteItemModal">Delete</a>
+				</div>
+			</div>
+			{% endif %}
+		</div>
+		<div class="col-md-2" role="complementary">
+		</div>
+	</div>
+</div>
+
+<div id="editItemModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Edit Item</h4>
+			</div>
+			<div class="modal-body">
+				<form action='/categories/{{ item.category.id }}/items/{{ item.id }}/' method='POST'>
+					<input name=_csrf_token type=hidden value="{{ csrf_token() }}">
+					<div class="form-group">
+						<label for="itemName">Item's Name:</label>
+						<input type="text" class="form-control" name="itemName" value="{{item.name}}">
+					</div>
+					<div class="form-group">
+						<label for="itemDesc">Item's Description:</label>
+						<textarea rows="3" class="form-control" name="itemDesc">{{item.description}}</textarea>
+					</div>
+					<div class="form-group">
+						<label for="itemPic">Item's Picture Link:</label>
+						<input type="text" class="form-control" name="itemPic" value="{{item.picture}}">
+					</div>
+					<button class="btn btn-success" type="submit">Edit</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal" style="float: right;">Close</button>
+				</form>
+			</div>
+			<div class="modal-footer"></div>
+		</div>
+	</div>
+</div>
+
+<div id="deleteItemModal" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Delete Item</h4>
+			</div>
+			<div class="modal-body">
+				<form action='/categories/{{ item.category.id }}/items/{{ item.id }}/delete/' method='POST'>
+					<input name=_csrf_token type=hidden value="{{ csrf_token() }}">
+					<p>Are you sure to delete <b>{{ item.name }}</b>?</p>
+					<button class="btn btn-success" type="submit">Yes</button>
+					<button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

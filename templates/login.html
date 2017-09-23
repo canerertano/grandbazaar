@@ -1,0 +1,48 @@
+<html>
+<head>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script src="//apis.google.com/js/platform.js?onload=start"></script>
+</head>
+
+<body>
+	<div id="signInButton">
+		<span class="g-signin"
+		data-scope="openid email"
+		data-clientid="540216121081-gelod1d796arf9hinr2303hu6kd1e3mf.apps.googleusercontent.com"
+		data-redirecturi="postmessage"
+		data-accesstype="offline"
+		data-cookiepolicy="single_host_origin"
+		data-callback="signInCallback"
+		data-approvalprompt="force">
+	</span>
+	<input name="_csrf_token" id="_csrf_token" type="hidden" value="{{ csrf_token() }}">
+</div>
+
+<script>
+	function signInCallback(authResult) {
+		if (authResult['code']) {
+			var csrf_token = $("#_csrf_token").val();
+			$.ajax({
+				type: 'POST',
+				url: '/gconnect?state={{STATE}}',
+				processData: false,
+				data: JSON.stringify({data: authResult['code'], _csrf_token: csrf_token}),
+				contentType: 'application/octet-stream; charset=utf-8',
+				success: function(result) {
+				// Handle or verify the server response if necessary.
+				if (result) {
+					setTimeout(function() {
+						window.location.href = "/";
+					}, 1);
+				} else if (authResult['error']) {
+					console.log('There was an error: ' + authResult['error']);
+				} else {
+					$('#result').html('Failed to make a server-side call. Check your configuration and console.');
+				}
+			}
+		});
+		}
+	}
+</script>
+</body>
+</html>

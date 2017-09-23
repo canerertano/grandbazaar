@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+
+* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box_sizing: border-box;
+	box-sizing: border-box;
+	font-family: 'Quicksand', sans-serif;
+}
+
+.thumbnail-height{
+	height: 320px;
+}
+
+.fixed-lines-header {
+    height: 3em;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.fixed-lines {
+    height: 7em;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.user-pic{
+	width: 60px; height: 60px;border-radius: 30px;-webkit-border-radius: 30px;-moz-border-radius: 30px;
+}
+
+.item-pic{
+	float: left; margin-right: 15px; width:240px;border-radius: 30px;-webkit-border-radius: 30px;-moz-border-radius: 30px;
+}
+
+.item-pic-big{
+ 	width: 132px; height: 80px; border-radius: 25px;-webkit-border-radius: 25px;-moz-border-radius: 25px;
+ }
