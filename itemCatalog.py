@@ -200,7 +200,7 @@ def gdisconnect():
 
 
 def getState():
-    if login_session['state'] is None:
+    if login_session.get('state') is None:
         return generateNewState()
     else:
         return login_session['state']
