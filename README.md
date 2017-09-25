@@ -32,3 +32,6 @@ There is a number of JSON endpoints which you can access with this URLs;
 * GET API/categories/:category_id/items/:item_id
 * GET API/items
 * GET API/items/:id
+
+## Author
+Caner Ertano @cnrkfks
